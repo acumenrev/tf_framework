@@ -1,3 +1,4 @@
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -28,6 +29,10 @@ class TFHTTPClient {
     }
 
     _setupInterceptors();
+  }
+
+  setHttpClientAdapter(HttpClientAdapter? adapter) {
+    _client.httpClientAdapter = adapter ?? DefaultHttpClientAdapter();
   }
 
   /// Setup Interceptor
