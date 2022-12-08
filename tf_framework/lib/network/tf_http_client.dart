@@ -11,7 +11,6 @@ class TFS extends TFHTTPClient {}
 
 class TFHTTPClient {
   late Dio _client;
-  static TFHTTPClient shared = TFHTTPClient();
 
   int getConnectTimeout() {
     return 30000; // 30s
