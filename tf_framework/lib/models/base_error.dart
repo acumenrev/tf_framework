@@ -1,10 +1,9 @@
-
 import 'package:dio/dio.dart';
 
 abstract class ITFError {
   int? statusCode;
   String? message;
-  late dynamic? data;
+  late dynamic data;
   late String domainName;
 }
 
@@ -21,7 +20,11 @@ class TFError implements ITFError {
   @override
   late String domainName;
 
-  TFError({required this.statusCode, required this.message, required this.domainName , this.data});
+  TFError(
+      {required this.statusCode,
+      required this.message,
+      required this.domainName,
+      this.data});
 
   TFError.initFromDioError(DioError err) {
     if (err.response != null) {
