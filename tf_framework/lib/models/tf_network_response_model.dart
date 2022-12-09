@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tf_framework/models/base_error.dart';
 
 class TFNetworkResponseModel {
@@ -12,14 +13,14 @@ class TFNetworkResponseModel {
   }
 
   setError(TFError error) {
-    _error = _error;
+    _error = error;
   }
 
-  getResponse() {
+  Response? getResponse() {
     return _response;
   }
 
-  getError() {
+  TFError? getError() {
     return _error;
   }
 

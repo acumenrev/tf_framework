@@ -1,3 +1,4 @@
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -11,7 +12,6 @@ class TFS extends TFHTTPClient {}
 
 class TFHTTPClient {
   late Dio _client;
-  static TFHTTPClient shared = TFHTTPClient();
 
   int getConnectTimeout() {
     return 30000; // 30s
@@ -21,9 +21,18 @@ class TFHTTPClient {
     return 3000; // 3s
   }
 
-  TFHTTPClient() {
-    _client = Dio(_dioOptions());
+  TFHTTPClient({Dio? dio}) {
+    if (dio == null) {
+      _client = Dio(_dioOptions());
+    } else {
+      _client = dio;
+    }
+
     _setupInterceptors();
+  }
+
+  setHttpClientAdapter(HttpClientAdapter? adapter) {
+    _client.httpClientAdapter = adapter ?? DefaultHttpClientAdapter();
   }
 
   /// Setup Interceptor
@@ -90,10 +99,8 @@ class TFHTTPClient {
 
       if (e.response != null) {
         networkResponse.setResponse(e.response!);
-        TFLogger.logger.e('Dio error!');
-        TFLogger.logger.e('STATUS: ${e.response?.statusCode}');
-        TFLogger.logger.e('DATA: ${e.response?.data}');
-        TFLogger.logger.e('HEADERS: ${e.response?.headers}');
+        TFLogger.logger.e(
+            'Dio error! \nSTATUS: ${e.response?.statusCode}\nHEADERS: ${e.response?.headers}DATA: ${e.response?.data}');
       } else {
         // Error due to setting up or sending the request
         TFLogger.logger.e('Error sending request!', e.message);

@@ -31,6 +31,11 @@ class TFError implements ITFError {
       this.statusCode = err.response!.statusCode;
       this.message = err.response!.statusMessage;
       this.data = err.response!.data;
+      this.domainName = "";
+    } else {
+      this.statusCode = -1;
+      this.message = err.message;
+      this.domainName = "";
     }
   }
 
