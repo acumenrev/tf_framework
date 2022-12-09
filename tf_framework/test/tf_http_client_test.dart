@@ -54,6 +54,34 @@ void main() {
       expect(data["message"], "internal server error");
     });
 
+    test("server throw exception", () async {
+      dioAdapter.onGet(urlToMock, (server) {
+        server.reply(500, {"message": "internal server error"});
+        server.throws(
+            503,
+            new DioError(
+                requestOptions: RequestOptions(path: urlToMock),
+                response: Response(
+                    requestOptions: RequestOptions(path: urlToMock),
+                    data: {"message": "error 503"})));
+      });
+
+      final response =
+          await client.fetch(path: urlToMock, method: TFHTTPMethod.get);
+      expect(response.getError() != null, true);
+      JSONData data = JSONData.from(response.getDecodedJsonResponse());
+      debugPrint("data: $data");
+      // expect(response.getError()?.statusCode, 503);
+      // Throws without user credentials.
+      expect(
+        () async =>
+            await client.fetch(path: urlToMock, method: TFHTTPMethod.get),
+        throwsA(isA<DioError>()),
+      );
+      expect(data != null, true);
+      expect(data["message"], "error 503");
+    });
+
     tearDown(() {
       dioAdapter.reset();
     });

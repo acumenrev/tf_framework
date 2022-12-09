@@ -1,6 +1,7 @@
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tf_framework/models/base_error.dart';
 import 'package:tf_framework/models/tf_network_response_model.dart';
@@ -96,7 +97,7 @@ class TFHTTPClient {
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
-
+      debugPrint("dio err: $e");
       if (e.response != null) {
         networkResponse.setResponse(e.response!);
         TFLogger.logger.e(
@@ -109,7 +110,7 @@ class TFHTTPClient {
       TFError err = TFError.initFromDioError(e);
       networkResponse.setError(err);
     } catch (e) {
-      rethrow;
+      TFLogger.logger.e('other exception', e.toString());
     }
     return networkResponse;
   }
