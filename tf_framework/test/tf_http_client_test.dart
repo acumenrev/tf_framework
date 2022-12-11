@@ -72,12 +72,7 @@ void main() {
       JSONData data = JSONData.from(response.getDecodedJsonResponse());
       debugPrint("data: $data");
       // expect(response.getError()?.statusCode, 503);
-      // Throws without user credentials.
-      expect(
-        () async =>
-            await client.fetch(path: urlToMock, method: TFHTTPMethod.get),
-        throwsA(isA<DioError>()),
-      );
+      // Throws without user credentials
       expect(data != null, true);
       expect(data["message"], "error 503");
     });

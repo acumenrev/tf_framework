@@ -111,6 +111,9 @@ class TFHTTPClient {
       networkResponse.setError(err);
     } catch (e) {
       TFLogger.logger.e('other exception', e.toString());
+      TFError err = TFError(
+          statusCode: 500, message: e.toString(), data: null, domainName: "");
+      networkResponse.setError(err);
     }
     return networkResponse;
   }
