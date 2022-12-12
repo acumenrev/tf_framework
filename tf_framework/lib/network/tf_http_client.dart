@@ -59,7 +59,7 @@ class TFHTTPClient {
       case TFHTTPMethod.post:
         return "POST";
       case TFHTTPMethod.put:
-        return "POT";
+        return "PUT";
     }
   }
 
