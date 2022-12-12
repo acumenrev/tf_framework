@@ -1,14 +1,15 @@
 import 'dart:developer';
+
 typedef JSONData = Map<String, dynamic>;
 
 abstract class ITFModel {
-  fromJson(JSONData json);
+  fromJson(JSONData? json);
   JSONData? toJson();
 }
 
 class TFModel implements ITFModel {
   @override
-  fromJson(JSONData json) {
+  fromJson(JSONData? json) {
     // TODO: implement fromJson
     throw UnimplementedError();
   }
@@ -22,5 +23,4 @@ class TFModel implements ITFModel {
   Object? toDebugString() {
     return inspect(this);
   }
-
 }
