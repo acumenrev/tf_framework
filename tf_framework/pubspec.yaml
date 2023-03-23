@@ -1,20 +1,26 @@
 name: tf_framework
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.8
 homepage:
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: ">=2.18.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  dio: ^4.0.6
+  connectivity_plus: ^3.0.2
+  pretty_dio_logger: ^1.2.0-beta-1
+  dio_http_cache: ^0.3.0
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  http_mock_adapter: ^0.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
